@@ -1,0 +1,19 @@
+.cards__remove-icon {
+  width: 18px;
+  height: 19px;
+  padding: 0;
+  display: none;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  background: url(../../../images/trash-icon.svg) no-repeat center;
+  background-size: contain;
+  z-index: 1;
+}
+
+.cards__remove-icon:hover {
+  opacity: 0.6;
+}

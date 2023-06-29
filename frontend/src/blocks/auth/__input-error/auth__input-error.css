@@ -1,0 +1,11 @@
+.auth__input-error {
+  display: block;
+  min-height: 32px;
+  height: 100%;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+}
+.auth__input-error:last-child {
+  margin: 0 0 184px 0;
+}

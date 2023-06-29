@@ -1,0 +1,32 @@
+.profile__avatar-container {
+  margin: 0 30px 0 0;
+  position: relative;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.profile__avatar-container::before {
+  content: '';
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: center no-repeat;
+  background-size: 26px 26px;
+  cursor: pointer;
+  z-index: 1;
+  transition: 0.4s ease;
+}
+.profile__avatar-container:hover::before {
+  background: url(../../../images/Vector.svg) center no-repeat
+    rgba(0, 0, 0, 0.8);
+}
+@media (max-width: 690px) {
+  .profile__avatar-container {
+    margin-right: 0;
+    margin-bottom: 26px;
+  }
+}
