@@ -7,6 +7,7 @@ import helmet from 'helmet';
 import router from './routes/index.js';
 import handleErrors from './errors/handleErrors.js';
 import { PORT, DB_CONN } from './dotenv.js';
+import { requestLogger, errorLogger } from './middlewares/logger.js';
 
 const app = express();
 const limiter = rateLimit({
@@ -27,7 +28,11 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(DB_CONN);
 
+app.use(requestLogger);
+
 app.use(router);
+
+app.use(errorLogger);
 
 app.use(errors());
 
