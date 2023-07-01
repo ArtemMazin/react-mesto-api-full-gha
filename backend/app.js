@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import rateLimit from 'express-rate-limit';
 import { errors } from 'celebrate';
@@ -18,6 +19,14 @@ const limiter = rateLimit({
   message: 'Слишком много запросов с данного IP, повторите попытку позднее',
 });
 
+app.use(cors({
+  credentials: true,
+  origin: ['https://praktikum.tk',
+    'http://praktikum.tk',
+    'http://localhost:3000',
+    'http://localhost:3001'],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+}));
 // express-rate-limit ограничивает количество запросов
 app.use(limiter);
 // helmet помогает защитить приложения Express, устанавливая заголовки ответа HTTP

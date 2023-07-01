@@ -77,7 +77,8 @@ function App() {
     apiAuth
       .login(email, password, setErrorMessageLogin)
       .then((data) => {
-        if (data.token) {
+        console.log(data);
+        if (data) {
           setEmail(email);
           handleLogin();
           navigate('/', { replace: true });
@@ -91,35 +92,35 @@ function App() {
   }
 
   //токен
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+  // useEffect(() => {
+  //   tokenCheck();
+  // }, []);
 
-  function tokenCheck() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      apiAuth
-        .getContent(token)
-        .then((res) => {
-          if (res) {
-            setEmail(res.data.email);
-            // авторизуем пользователя
-            setLoggedIn(true);
-            navigate('/', { replace: true });
-          }
-        })
-        .catch(console.error);
-    }
-  }
+  // function tokenCheck() {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     apiAuth
+  //       .getContent(token)
+  //       .then((res) => {
+  //         if (res) {
+  //           setEmail(res.data.email);
+  //           // авторизуем пользователя
+  //           setLoggedIn(true);
+  //           navigate('/', { replace: true });
+  //         }
+  //       })
+  //       .catch(console.error);
+  //   }
+  // }
 
-  useEffect(() => {
-    Promise.all([api.getProfileData(), api.getInitialCards()])
-      .then(([userInfo, arrayCards]) => {
-        setCurrentUser(userInfo);
-        setCards(arrayCards);
-      })
-      .catch(console.error);
-  }, []);
+  // useEffect(() => {
+  //   Promise.all([api.getProfileData(), api.getInitialCards()])
+  //     .then(([userInfo, arrayCards]) => {
+  //       setCurrentUser(userInfo);
+  //       setCards(arrayCards);
+  //     })
+  //     .catch(console.error);
+  // }, []);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);

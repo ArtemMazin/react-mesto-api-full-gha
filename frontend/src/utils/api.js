@@ -1,7 +1,8 @@
 class Api {
-  constructor({ baseUrl, headers }) {
+  constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
     this._headers = headers;
+    this._credentials = credentials
   }
 
   _getResponseData(res) {
@@ -12,7 +13,7 @@ class Api {
   }
 
   async _request(url, options) {
-    const res = await fetch(`${this._baseUrl}${url}`, { headers: this._headers, ...options });
+    const res = await fetch(`${this._baseUrl}${url}`, { headers: this._headers, credentials: this._credentials, ...options });
     return this._getResponseData(res);
   }
 
@@ -64,10 +65,11 @@ class Api {
   }
 }
 const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-62/',
+  baseUrl: 'http://localhost:3000/',
   headers: {
-    authorization: 'ad0e399e-98fe-4937-8e46-ff5ac7a149ca',
+    // authorization: 'ad0e399e-98fe-4937-8e46-ff5ac7a149ca',
     'Content-Type': 'application/json',
   },
+  credentials: 'include',
 });
 export default api;

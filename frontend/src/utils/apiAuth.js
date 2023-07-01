@@ -1,4 +1,4 @@
-const BASE_URL = 'https://auth.nomoreparties.co';
+const BASE_URL = 'http://localhost:3000';
 
 function getResponseData(res, setErrorMessage) {
   if (!res.ok) {
@@ -24,6 +24,7 @@ export function register(email, password, setErrorMessageRegister) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     },
     setErrorMessageRegister
@@ -38,12 +39,14 @@ export function login(email, password, setErrorMessageLogin) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: 'include',
       body: JSON.stringify({ email, password }),
     },
     setErrorMessageLogin
   ).then((data) => {
-    if (data.token) {
-      localStorage.setItem('token', data.token);
+    console.log(data);
+    if (data) {
+      localStorage.setItem('token', data);
       return data;
     }
   });
@@ -56,5 +59,6 @@ export function getContent(token) {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
+    credentials: 'include',
   });
 }
