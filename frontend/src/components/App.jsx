@@ -77,7 +77,6 @@ function App() {
     apiAuth
       .login(email, password, setErrorMessageLogin)
       .then((data) => {
-        console.log(data);
         if (data) {
           setEmail(email);
           handleLogin();
@@ -92,35 +91,37 @@ function App() {
   }
 
   //токен
-  // useEffect(() => {
-  //   tokenCheck();
-  // }, []);
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
-  // function tokenCheck() {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     apiAuth
-  //       .getContent(token)
-  //       .then((res) => {
-  //         if (res) {
-  //           setEmail(res.data.email);
-  //           // авторизуем пользователя
-  //           setLoggedIn(true);
-  //           navigate('/', { replace: true });
-  //         }
-  //       })
-  //       .catch(console.error);
-  //   }
-  // }
+  function tokenCheck() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      apiAuth
+        .getContent()
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            // авторизуем пользователя
+            setLoggedIn(true);
+            navigate('/', { replace: true });
+          }
+        })
+        .catch(console.error);
+    }
+  }
 
-  // useEffect(() => {
-  //   Promise.all([api.getProfileData(), api.getInitialCards()])
-  //     .then(([userInfo, arrayCards]) => {
-  //       setCurrentUser(userInfo);
-  //       setCards(arrayCards);
-  //     })
-  //     .catch(console.error);
-  // }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      Promise.all([api.getProfileData(), api.getInitialCards()])
+      .then(([userInfo, arrayCards]) => {
+        setCurrentUser(userInfo.data);
+        setCards(arrayCards.data);
+      })
+      .catch(console.error);
+    } 
+  }, [loggedIn]);
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true);
@@ -155,7 +156,7 @@ function App() {
     api
       .changeProfileData(user)
       .then((userInfo) => {
-        setCurrentUser(userInfo);
+        setCurrentUser(userInfo.data);
         closeAllPopups();
       })
       .catch(console.error)
@@ -167,7 +168,7 @@ function App() {
     api
       .changeAvatar(user)
       .then((userInfo) => {
-        setCurrentUser(userInfo);
+        setCurrentUser(userInfo.data);
         closeAllPopups();
       })
       .catch(console.error)
@@ -175,11 +176,11 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
-        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        const newCards = cards.map((c) => (c._id === card._id ? newCard.data : c));
         setCards(newCards);
       })
       .catch(console.error);
@@ -187,6 +188,7 @@ function App() {
 
   function handleCardDelete(card) {
     setIsLoading(true);
+    
     api
       .deleteCard(card._id)
       .then(() => {
@@ -205,11 +207,12 @@ function App() {
   }
 
   function handleAddPlaceSubmit(card) {
+    
     setIsLoading(true);
     api
       .addNewCard(card)
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard.data, ...cards]);
         closeAllPopups();
       })
       .catch(console.error)

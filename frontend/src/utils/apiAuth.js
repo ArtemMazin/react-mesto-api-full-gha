@@ -44,20 +44,18 @@ export function login(email, password, setErrorMessageLogin) {
     },
     setErrorMessageLogin
   ).then((data) => {
-    console.log(data);
     if (data) {
-      localStorage.setItem('token', data);
+      localStorage.setItem('token', 'isLoggedIn');
       return data;
     }
   });
 }
 
-export function getContent(token) {
+export function getContent() {
   return request('/users/me', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
     },
     credentials: 'include',
   });
