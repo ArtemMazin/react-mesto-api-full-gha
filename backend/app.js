@@ -22,10 +22,13 @@ const limiter = rateLimit({
 
 app.use(cors({
   credentials: true,
-  origin: ['https://praktikum.tk',
+  origin: [
+    'https://praktikum.tk',
     'http://praktikum.tk',
-    'http://localhost:3000',
-    'http://localhost:3001'],
+    'http://mazin.artem.nomoreparties.sbs',
+    'https://mazin.artem.nomoreparties.sbs',
+    'http://localhost:3001',
+    ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 }));
 // express-rate-limit ограничивает количество запросов
