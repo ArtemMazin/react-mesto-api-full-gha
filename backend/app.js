@@ -28,7 +28,7 @@ app.use(cors({
     'http://mazin.artem.nomoreparties.sbs',
     'https://mazin.artem.nomoreparties.sbs',
     'http://localhost:3001',
-    ],
+  ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 }));
 // express-rate-limit ограничивает количество запросов

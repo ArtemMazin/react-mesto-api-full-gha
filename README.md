@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.39.218
+IP 158.160.39.218
 
 Frontend https://mazin.artem.nomoreparties.sbs
 
