@@ -1,3 +1,5 @@
+const { BASE_URL = 'http://localhost:3000' } = process.env;
+
 class Api {
   constructor({ baseUrl, headers, credentials }) {
     this._baseUrl = baseUrl;
@@ -18,13 +20,13 @@ class Api {
   }
 
   getInitialCards() {
-    return this._request('cards');
+    return this._request('/cards');
   }
   getProfileData() {
-    return this._request('users/me');
+    return this._request('/users/me');
   }
   changeProfileData(data) {
-    return this._request('users/me', {
+    return this._request('/users/me', {
       method: 'PATCH',
       body: JSON.stringify({
         name: data.name,
@@ -33,7 +35,7 @@ class Api {
     });
   }
   addNewCard(data) {
-    return this._request('cards', {
+    return this._request('/cards', {
       method: 'POST',
       body: JSON.stringify({
         name: data.name,
@@ -42,7 +44,7 @@ class Api {
     });
   }
   changeAvatar(data) {
-    return this._request('users/me/avatar', {
+    return this._request('/users/me/avatar', {
       method: 'PATCH',
       body: JSON.stringify({
         avatar: data.avatar,
@@ -50,22 +52,22 @@ class Api {
     });
   }
   deleteCard(cardID) {
-    return this._request(`cards/${cardID}`, {
+    return this._request(`/cards/${cardID}`, {
       method: 'DELETE',
     });
   }
   changeLikeCardStatus(cardID, isLiked) {
     return isLiked
-      ? this._request(`cards/${cardID}/likes`, {
+      ? this._request(`/cards/${cardID}/likes`, {
           method: 'PUT',
         })
-      : this._request(`cards/${cardID}/likes`, {
+      : this._request(`/cards/${cardID}/likes`, {
           method: 'DELETE',
         });
   }
 }
 const api = new Api({
-  baseUrl: 'https://api.mazin.artem.nomoreparties.sbs/',
+  baseUrl: BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
