@@ -117,7 +117,7 @@ function App() {
       Promise.all([api.getProfileData(), api.getInitialCards()])
       .then(([userInfo, arrayCards]) => {
         setCurrentUser(userInfo.data);
-        setCards(arrayCards.data.reverse());
+        setCards(arrayCards.data);
       })
       .catch(console.error);
     } 
