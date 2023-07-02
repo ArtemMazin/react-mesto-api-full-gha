@@ -65,9 +65,8 @@ class Api {
   }
 }
 const api = new Api({
-  baseUrl: 'http://localhost:3000/',
+  baseUrl: 'https://api.mazin.artem.nomoreparties.sbs/',
   headers: {
-    // authorization: 'ad0e399e-98fe-4937-8e46-ff5ac7a149ca',
     'Content-Type': 'application/json',
   },
   credentials: 'include',

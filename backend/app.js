@@ -1,4 +1,5 @@
 import express from 'express';
+import 'dotenv/config';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -38,6 +39,12 @@ app.use(express.urlencoded({ extended: true }));
 mongoose.connect(DB_CONN);
 
 app.use(requestLogger);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use(router);
 
